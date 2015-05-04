@@ -1,5 +1,6 @@
 package org.inclusiverec.arcanecrafts;
 
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.inclusiverec.arcanecrafts.items.ArcaneItem;
 import org.inclusiverec.arcanecrafts.items.ArcaneItemFactory;
@@ -23,7 +24,10 @@ public class ArcaneCrafts extends JavaPlugin {
 
         // Load items
         arcaneItems = new HashMap<String,ArcaneItem>();
-        for(String itemName:getConfig().getConfigurationSection("Items").getKeys(false)) {
+        ConfigurationSection items;
+        if(getConfig().contains("Items")) items = getConfig().getConfigurationSection("Items");
+        else items = getConfig().createSection("Items");
+        for(String itemName:items.getKeys(false)) {
             ArcaneItem item = factory.getItemFromConfig(itemName);
             if(item!=null)
                 arcaneItems.put(itemName, item);

@@ -1,7 +1,7 @@
 package org.inclusiverec.arcanecrafts.items;
 
+import main.java.org.inclusiverec.arcanecrafts.ArcaneCrafts;
 import org.bukkit.configuration.ConfigurationSection;
-import org.inclusiverec.arcanecrafts.ArcaneCrafts;
 
 public class ArcaneItemFactory {
 
@@ -14,13 +14,6 @@ public class ArcaneItemFactory {
         if(section==null) return null;
         String type = section.getString("Type");
         ArcaneItem item;
-        switch(type) {
-            case "weapon":
-                item=getArcaneWeapon(section);
-                break;
-            default:
-                break;
-        }
         return null;
     }
 

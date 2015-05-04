@@ -5,9 +5,23 @@
     <groupId>org.inclusiverec.arcanecrafts</groupId>
     <artifactId>ArcaneCrafts</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>ArcaneCrafts</name>
     <url>http://maven.apache.org</url>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/java</directory>
+                <includes>
+                    <include>*.yml</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
+    <properties>
+        <jdk.version>1.8</jdk.version>
+    </properties>
 
     <dependencies>
 
