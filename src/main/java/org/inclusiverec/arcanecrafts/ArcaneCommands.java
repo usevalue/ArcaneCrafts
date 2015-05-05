@@ -9,6 +9,11 @@ public class ArcaneCommands implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
+        if(command.getName().equalsIgnoreCase("arcanecrafts")) {
+
+        }
         return false;
     }
+
+
 }

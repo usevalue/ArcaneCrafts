@@ -1,6 +1,6 @@
 package org.inclusiverec.arcanecrafts.items;
 
-import main.java.org.inclusiverec.arcanecrafts.ArcaneCrafts;
+import org.inclusiverec.arcanecrafts.ArcaneCrafts;
 import org.bukkit.configuration.ConfigurationSection;
 
 public class ArcaneItemFactory {
