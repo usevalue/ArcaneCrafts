@@ -35,5 +35,9 @@ public class ArcaneCrafts extends JavaPlugin {
 
         // Load dependencies
 
+        // Register commands
+        getCommand("arcanecrafts").setExecutor(new ArcaneCommands());
+
+
     }
 }
