@@ -4,10 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 import org.inclusiverec.arcanecrafts.items.ArcaneItem;
-
-import java.util.HashMap;
 
 public class ArcaneCommands implements CommandExecutor {
 
@@ -32,7 +29,7 @@ public class ArcaneCommands implements CommandExecutor {
                 ArcaneItem item;
                 if(args.length==3) {
                     player = ArcaneCrafts.plugin.getServer().getPlayer(args[2]);
-                    if(player==null||!(player instanceof Player)) {
+                    if(player==null) {
                         sender.sendMessage(args[2]+" is not a valid player name!");
                         return true;
                     }
@@ -51,7 +48,8 @@ public class ArcaneCommands implements CommandExecutor {
                 }
 
                 item = getItem(args[1]);
-                player.getInventory().addItem(item.getItemStack());
+                if(item!=null)player.getInventory().addItem(item.getItemStack());
+                else sender.sendMessage("No item found by configuration name "+args[1]+".");
                 return true;
             }
 
@@ -86,8 +84,7 @@ public class ArcaneCommands implements CommandExecutor {
     }
 
     public ArcaneItem getItem(String configName) {
-        //TODO
-        return null;
+        return ArcaneCrafts.armoury.get(configName);
     }
 
 }

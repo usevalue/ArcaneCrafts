@@ -6,12 +6,12 @@ import org.bukkit.inventory.ItemStack;
 public abstract class ArcaneItem {
 
     private ConfigurationSection section;
-    private String configName;
-    private String displayName;
-    private ItemStack item;
+    private final String configName;
+    private final ItemStack item;
 
-    public ArcaneItem(String configName) {
+    public ArcaneItem(String configName, ItemStack item) {
         this.configName=configName;
+        this.item=item;
     }
 
     public String getConfigName() {
@@ -20,12 +20,6 @@ public abstract class ArcaneItem {
 
     public ItemStack getItemStack() {
         return item;
-    }
-
-    public boolean setItemStack(ItemStack itemStack) {
-        if(itemStack==null) return false;
-        item=itemStack;
-        return true;
     }
 
 }

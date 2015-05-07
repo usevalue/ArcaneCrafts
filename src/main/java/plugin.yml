@@ -1,7 +1,6 @@
 name: ArcaneCrafts
 main: org.inclusiverec.arcanecrafts.ArcaneCrafts
 version: 0.0.1
-
 commands:
     arcanecrafts:
         description: Basic command for ArcaneCrafts
