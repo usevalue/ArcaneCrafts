@@ -53,6 +53,13 @@ public class ArcaneCommands implements CommandExecutor {
                 return true;
             }
 
+            if (args[0].equalsIgnoreCase("list")) {
+                sender.sendMessage("Currently configured items are:");
+                for(String configName:ArcaneCrafts.armoury.keySet()) {
+                    sender.sendMessage(configName);
+                }
+            }
+
         }
         return false;
     }
@@ -67,9 +74,10 @@ public class ArcaneCommands implements CommandExecutor {
     public String[] getHelp(String[] args) {
         String[] help;
         if(args.length<2) {
-            help = new String[2];
+            help = new String[3];
             help[0] = "Valid ArcaneCrafts commands are:";
             help[1] = "/arcanecrafts get <item> [player]";
+            help[2] = "/arcanecrafts list";
             return help;
         }
         if(args[1].equalsIgnoreCase("get")) {
@@ -79,6 +87,12 @@ public class ArcaneCommands implements CommandExecutor {
             help[2] = "<item> must be a valid CONFIGURATION name.  Type /arcanecrafts list for a list of configured items.";
             help[3] = "You can either enter another [player] to receive the item, or else you will receive it yourself.";
             help[4] = "If the target player lacks inventory space, the command will noiselessly fail."; // I assume?
+            return help;
+        }
+        if(args[1].equalsIgnoreCase("list")) {
+            help = new String[1];
+            help[0] = "/arcanecrafts list returns a list of currently configured items, by configuration name.";
+            return help;
         }
         return null;
     }
