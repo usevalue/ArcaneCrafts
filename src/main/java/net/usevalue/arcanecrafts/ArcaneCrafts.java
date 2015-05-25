@@ -1,5 +1,6 @@
-package org.inclusiverec.arcanecrafts;
+package net.usevalue.arcanecrafts;
 
+import net.usevalue.arcanecrafts.items.ArcaneItem;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
@@ -8,8 +9,6 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.inclusiverec.arcanecrafts.items.ArcaneItem;
-import org.inclusiverec.arcanecrafts.items.ArcaneWeapon;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,11 +18,13 @@ public class ArcaneCrafts extends JavaPlugin {
 
     public static ArcaneCrafts plugin;
     public static HashMap<String,ArcaneItem> armoury;
-    private boolean debug = true;
+    private boolean debug;
 
     @Override
     public void onEnable() {
         plugin=this;
+        saveDefaultConfig();
+        debug = getConfig().getBoolean("debug",true);
         load();
     }
 
@@ -37,42 +38,38 @@ public class ArcaneCrafts extends JavaPlugin {
         else items = getConfig().createSection("Items");
         for(String configName:items.getKeys(false)) {
             if(debug) getLogger().log(Level.WARNING,"Loading item "+configName+"...");
-            ArcaneItem getIt = loadItemFromConfig(configName);
+            ArcaneItem getIt = getItemFromConfig(configName);
             if(getIt!=null) armoury.put(configName,getIt);
         }
 
         // Load dependencies
 
-        // Register commands
+        // Register commands and events
         getCommand("arcanecrafts").setExecutor(new ArcaneCommands());
-
-        // Event listeners?  Or leave it to individual items?
+        getServer().getPluginManager().registerEvents(new ArcaneListener(this),this);
 
     }
 
-    public ArcaneItem loadItemFromConfig(String configName) {
+    public ArcaneItem getItemByConfigName(String configName) {
+        return armoury.get(configName);
+    }
+
+    public ArcaneItem getItemFromConfig(String configName) {
         //Find in config
         ConfigurationSection config = getConfig().getConfigurationSection("Items."+configName);
         if(config==null) return null;
-        // Create item
-        ArcaneItem arcItem;
-        String type = config.getString("Type").toLowerCase();
-        switch(type) {
-            case "weapon":
-                arcItem = new ArcaneWeapon(configName);
-                break;
-            default:
-                return null;
-        }
+        ArcaneItem arcItem = new ArcaneItem(configName);
+
         // Generate itemstack
-        ItemStack itemStack = new ItemStack(Material.valueOf(config.getString("Material")));
-        if(itemStack==null||itemStack.getType()==null) {
+        ItemStack itemStack;
+        try {itemStack = new ItemStack(Material.valueOf(config.getString("Material")));}
+        catch (IllegalArgumentException e) {
             getLogger().log(Level.WARNING,"[ArcaneCrafts] Invalid material for "+configName+".");
             return null;
         }
-        // Displayname
+
+        // Get data from config
         itemStack.getItemMeta().setDisplayName(config.getString("Name",itemStack.getType().name()));
-        // Enchantments
         List<String> enchants = config.getStringList("Enchants");
         for(String enchantment:enchants) {
             String[] ench = enchantment.split(" ");

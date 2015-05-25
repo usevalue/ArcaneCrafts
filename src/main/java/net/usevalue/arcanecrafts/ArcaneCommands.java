@@ -1,10 +1,10 @@
-package org.inclusiverec.arcanecrafts;
+package net.usevalue.arcanecrafts;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.inclusiverec.arcanecrafts.items.ArcaneItem;
+import net.usevalue.arcanecrafts.items.ArcaneItem;
 
 public class ArcaneCommands implements CommandExecutor {
 
