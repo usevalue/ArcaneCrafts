@@ -1,5 +1,5 @@
 name: ArcaneCrafts
-main: org.inclusiverec.arcanecrafts.ArcaneCrafts
+main: ArcaneCrafts
 version: 0.0.1
 commands:
     arcanecrafts:
